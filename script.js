@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initStatCounters();
     initThemeToggle();
     initMobileNav();
+    initStackExplorer();
 });
 
 /* =========================================
@@ -463,20 +464,118 @@ function initThemeToggle() {
 function initMobileNav() {
     const mobileToggle = document.getElementById('mobile-toggle');
     const navLinks = document.getElementById('nav-links');
+    const navBackdrop = document.getElementById('nav-backdrop');
     if (!mobileToggle || !navLinks) return;
 
     const links = document.querySelectorAll('.nav-link');
 
+    const openMenu = () => {
+        mobileToggle.classList.add('active');
+        mobileToggle.setAttribute('aria-expanded', 'true');
+        navLinks.classList.add('active');
+        if (navBackdrop) navBackdrop.classList.add('active');
+        document.body.classList.add('nav-open');
+    };
+
+    const closeMenu = () => {
+        mobileToggle.classList.remove('active');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('active');
+        if (navBackdrop) navBackdrop.classList.remove('active');
+        document.body.classList.remove('nav-open');
+    };
+
     mobileToggle.addEventListener('click', () => {
         const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-        mobileToggle.setAttribute('aria-expanded', !expanded);
-        navLinks.classList.toggle('active');
+        if (expanded) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+
+    if (navBackdrop) {
+        navBackdrop.addEventListener('click', closeMenu);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            closeMenu();
+        }
     });
 
     links.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            mobileToggle.setAttribute('aria-expanded', 'false');
+        link.addEventListener('click', closeMenu);
+    });
+}
+
+/* =========================================
+   12. TECH STACK EXPLORER (FILTER TABS + TILES)
+========================================= */
+function initStackExplorer() {
+    const tabsWrap = document.querySelector('.stack-tabs');
+    const grid = document.getElementById('stack-grid');
+    if (!tabsWrap || !grid) return;
+
+    const tabs = tabsWrap.querySelectorAll('.stack-tab');
+    const tiles = grid.querySelectorAll('.stack-tile');
+    const indicator = tabsWrap.querySelector('.stack-tab-indicator');
+    let current = 'all';
+
+    const moveIndicator = (tab) => {
+        if (!indicator || !tab) return;
+        indicator.style.width = tab.offsetWidth + 'px';
+        indicator.style.transform = 'translateX(' + tab.offsetLeft + 'px)';
+    };
+
+    // Show tiles in the chosen category, replaying the staggered entrance
+    const showCategory = (filter) => {
+        let order = 0;
+        tiles.forEach(tile => {
+            const match = filter === 'all' || tile.dataset.category === filter;
+            tile.classList.remove('is-shown');
+            tile.classList.toggle('is-hidden', !match);
+            if (match) tile.style.setProperty('--d', order++);
+        });
+        void grid.offsetWidth; // restart the CSS animation
+        tiles.forEach(tile => {
+            if (!tile.classList.contains('is-hidden')) tile.classList.add('is-shown');
+        });
+    };
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const filter = tab.dataset.stackFilter;
+            if (filter === current) return;
+            current = filter;
+            tabs.forEach(t => {
+                const on = t === tab;
+                t.classList.toggle('active', on);
+                t.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+            moveIndicator(tab);
+            tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+            showCategory(filter);
         });
     });
+
+    const activeTab = () => tabsWrap.querySelector('.stack-tab.active');
+    moveIndicator(activeTab());
+    window.addEventListener('resize', () => moveIndicator(activeTab()), { passive: true });
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => moveIndicator(activeTab()));
+    }
+
+    // Play the first entrance when the grid scrolls into view
+    if (!('IntersectionObserver' in window)) {
+        showCategory(current);
+        return;
+    }
+    const observer = new IntersectionObserver((entries, obs) => {
+        if (entries.some(e => e.isIntersecting)) {
+            showCategory(current);
+            obs.disconnect();
+        }
+    }, { threshold: 0.15 });
+    observer.observe(grid);
 }

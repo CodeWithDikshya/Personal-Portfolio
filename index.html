@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dikshya Thapa | Full Stack Developer &amp; Software Engineer</title>
-    <meta name="description" content="Portfolio of Dikshya Thapa, a Full Stack Developer & Software Engineer specializing in HTML5, CSS3, JavaScript (ES6+), PHP, Laravel, MySQL, Python, responsive design, web performance, and scalable web applications.">
-    <meta name="keywords" content="Dikshya Thapa, Full Stack Developer, Full Stack Engineer, Software Engineer, Laravel Developer, PHP Developer, Python Developer, JavaScript Developer, Web Developer Nepal, HTML5 CSS3, MySQL">
+    <meta name="description" content="Portfolio of Dikshya Thapa, a Full Stack Developer & Software Engineer specializing in HTML5, CSS3, JavaScript (ES6+), React.js, Next.js, Node.js, Express.js, PHP, Laravel, responsive design, and scalable web applications.">
+    <meta name="keywords" content="Dikshya Thapa, Full Stack Developer, Full Stack Engineer, Software Engineer, React Developer, Next.js Developer, Node.js Developer, Express.js, Laravel Developer, PHP Developer, JavaScript Developer, Web Developer Nepal, HTML5 CSS3">
     <meta name="author" content="Dikshya Thapa">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://dikshya-thapa.com.np">
@@ -14,7 +14,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dikshya-thapa.com.np">
     <meta property="og:title" content="Dikshya Thapa | Full Stack Developer &amp; Software Engineer">
-    <meta property="og:description" content="Crafting responsive, accessible, and high-performance full stack web applications with modern HTML5, CSS3, JavaScript (ES6+), PHP, Laravel, Python, and MySQL.">
+    <meta property="og:description" content="Crafting responsive, accessible, and high-performance full stack web applications with HTML5, CSS3, JavaScript (ES6+), React.js, Next.js, Node.js, Express.js, PHP, and Laravel.">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -27,10 +27,26 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Apply saved / system theme before paint (prevents light-mode flash) -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('dikshya_theme');
+                var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+            } catch (e) { /* storage blocked: keep default */ }
+            if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+                document.documentElement.classList.add('is-loading');
+                setTimeout(function () { document.documentElement.classList.remove('is-loading'); }, 4000);
+            }
+        })();
+    </script>
+
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
 
     <!-- JSON-LD Structured Data for SEO & Recruiter Discovery -->
     <script type="application/ld+json">
@@ -46,21 +62,33 @@
       ],
       "knowsAbout": [
         "Full Stack Web Development",
+        "HTML5 & CSS3",
         "JavaScript (ES6+)",
+        "React.js & Next.js",
+        "Node.js & Express.js",
         "PHP & Laravel Framework",
-        "Python & MySQL Databases",
-        "HTML5 & CSS3 Architecture",
+        "Git & GitHub",
         "Responsive Web Design",
-        "REST API Integration",
-        "Web Performance & Optimization"
+        "REST API Development"
       ]
     }
     </script>
 </head>
 <body>
 
+    <!-- Intro loader (hidden by animations.js once the page has loaded) -->
+    <div class="page-loader" aria-hidden="true">
+        <div class="loader-inner">
+            <span class="loader-mark">DT</span>
+            <span class="loader-bar"><span></span></span>
+        </div>
+    </div>
+
     <!-- Accessibility Skip Link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
     <!-- Header / Navbar -->
     <header class="navbar" id="navbar">
@@ -91,15 +119,17 @@
                 </button>
             </div>
         </nav>
+        <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
     </header>
 
     <main id="main-content">
         <!-- Hero Section -->
         <section id="hero" class="hero-section" aria-label="Introduction">
+            <div class="hero-aurora" aria-hidden="true"><span></span><span></span><span></span></div>
             <div class="hero-container">
                 <div class="hero-content">
                     <div class="badge" data-reveal>
-                        <span class="status-dot"></span> FullStack Developer | Open to Internships &amp; Engineering Roles
+                        <span class="status-dot"></span> FullStack Developer | Open to Full-Time Roles
                     </div>
                     
                     <h1 data-reveal="delay-1">
@@ -107,7 +137,7 @@
                     </h1>
                     
                     <p data-reveal="delay-2">
-                        I am <strong>Dikshya Thapa</strong>, a FullStack Developer specialized in building intuitive, responsive, and accessible user interfaces using HTML5, CSS3, JavaScript (ES6+), PHP, Laravel, Python, and MySQL.
+                        I am <strong>Dikshya Thapa</strong>, a FullStack Developer building intuitive, responsive, and accessible web applications with HTML5, CSS3, JavaScript (ES6+), React.js and Next.js on the frontend, and Node.js, Express.js, PHP and Laravel on the backend.
                     </p>
                     
                     <div class="hero-btns" data-reveal="delay-3">
@@ -116,6 +146,21 @@
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </a>
                         <a href="#contact" class="btn btn-secondary">Let's Connect</a>
+                    </div>
+
+                    <div class="hero-stats" data-reveal="delay-4">
+                        <div class="stat-item">
+                            <h3 class="stat-number" data-target="5" data-suffix="+">0</h3>
+                            <p>Projects Delivered</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 class="stat-number" data-target="6">0</h3>
+                            <p>Certifications</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 class="stat-number" data-target="2">0</h3>
+                            <p>Professional Roles</p>
+                        </div>
                     </div>
                 </div>
 
@@ -132,7 +177,11 @@
   <span class="kwd">constructor</span>() {
     <span class="kwd">this</span>.<span class="var">name</span> = <span class="str">'Dikshya Thapa'</span>;
     <span class="kwd">this</span>.<span class="var">role</span> = <span class="str">'Fullstack'</span>;
-    <span class="kwd">this</span>.<span class="var">stack</span> = [<span class="str">'JS (ES6+)'</span>, <span class="str">'HTML5'</span>, <span class="str">'PHP/Laravel'</span>, <span class="str">'Python'</span>, <span class="str">'MySQL'</span>];
+    <span class="kwd">this</span>.<span class="var">stack</span> = {
+      <span class="var">frontend</span>: [<span class="str">'HTML'</span>, <span class="str">'CSS'</span>, <span class="str">'JS'</span>, <span class="str">'React'</span>, <span class="str">'Next.js'</span>],
+      <span class="var">backend</span>:  [<span class="str">'Node.js'</span>, <span class="str">'Express'</span>, <span class="str">'PHP'</span>, <span class="str">'Laravel'</span>],
+      <span class="var">tools</span>:    [<span class="str">'Git'</span>, <span class="str">'GitHub'</span>, <span class="str">'VS Code'</span>]
+    };
   }
   <span class="cls">renderUI</span>() {
     <span class="kwd">return new</span> <span class="cls">SeamlessUserExperience</span>();
@@ -152,41 +201,89 @@
                     <div class="header-line"></div>
                 </div>
 
-                <div class="about-grid">
-                    <div class="about-card glass-card" data-reveal="delay-1">
-                        <p class="about-text">
-                            I am a <strong>Full Stack Developer</strong> passionate about building modern, scalable, and user-focused web applications from front to back. I specialize in creating responsive user interfaces with HTML5, CSS3, and JavaScript while developing secure and efficient backend solutions using PHP, Laravel, and MySQL. My approach emphasizes clean architecture, performance optimization, accessibility, and writing maintainable code that delivers exceptional user experiences.
+                <div class="about-bento">
+                    <!-- Intro -->
+                    <div class="about-intro glass-card" data-reveal="delay-1" data-anim="left">
+                        <span class="about-eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Who I am</span>
+
+                        <p class="about-lead">
+                            I build <mark class="hl">modern, scalable</mark> web applications from <mark class="hl">front to back</mark>.
                         </p>
 
-                        <div class="about-highlights">
-                            <div class="highlight-item">
-                                <h4>Frontend Engineering &amp; UI/UX</h4>
-                                <p>Transforming ideas and Figma designs into responsive, accessible, and visually engaging interfaces using modern frontend technologies and best design practices.</p>
-                            </div>
+                        <p class="about-text">
+                            As a <strong>Full Stack Developer</strong>, I create responsive user interfaces with HTML5, CSS3, JavaScript, React.js, and Next.js, and develop secure, efficient backends using Node.js, Express.js, PHP, and Laravel. I manage my work with Git and GitHub. My approach emphasizes clean architecture, performance optimization, accessibility, and maintainable code that delivers exceptional user experiences.
+                        </p>
 
-                            <div class="highlight-item">
-                                <h4>Backend Development</h4>
-                                <p>Developing secure backend systems with Laravel, PHP, and MySQL, including database design, RESTful APIs, authentication, and efficient data management.</p>
-                            </div>
+                        <ul class="about-facts">
+                            <li class="fact">
+                                <span class="fact-icon" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle pathLength="1" cx="12" cy="10" r="2.5"/></svg>
+                                </span>
+                                <span class="fact-text"><small>Location</small>Jhapa, Nepal</span>
+                            </li>
+                            <li class="fact">
+                                <span class="fact-icon" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline pathLength="1" points="16 18 22 12 16 6"/><polyline pathLength="1" points="8 6 2 12 8 18"/></svg>
+                                </span>
+                                <span class="fact-text"><small>Focus</small>Full Stack Web</span>
+                            </li>
+                            <li class="fact">
+                                <span class="fact-icon is-live" aria-hidden="true">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M20 6 9 17l-5-5"/></svg>
+                                </span>
+                                <span class="fact-text"><small>Status</small>Open to full-time</span>
+                            </li>
+                        </ul>
+                    </div>
 
-                            <div class="highlight-item">
-                                <h4>Performance &amp; Quality</h4>
-                                <p>Building fast, scalable, and cross-browser compatible applications while focusing on clean code, accessibility (WCAG), optimization, and long-term maintainability.</p>
+                    <!-- What I do -->
+                    <div class="about-points">
+                        <article class="about-point glass-card" data-reveal="delay-2" data-anim="right">
+                            <span class="point-num" aria-hidden="true">01</span>
+                            <span class="point-icon" aria-hidden="true">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect pathLength="1" x="2" y="3" width="20" height="14" rx="2"/><path pathLength="1" d="M8 21h8M12 17v4"/><path pathLength="1" d="m9 8-2 2 2 2M15 8l2 2-2 2"/></svg>
+                            </span>
+                            <div class="point-body">
+                                <h3>Frontend Engineering &amp; UI/UX</h3>
+                                <p>Transforming ideas into responsive, accessible, and visually engaging interfaces using HTML5, CSS3, JavaScript, React.js, and Next.js.</p>
                             </div>
-                        </div>
+                            <span class="point-bar" aria-hidden="true"></span>
+                        </article>
 
-                        <div class="mission-box">
-                            <div class="mission-icon" aria-hidden="true">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                </svg>
+                        <article class="about-point glass-card" data-reveal="delay-3" data-anim="right">
+                            <span class="point-num" aria-hidden="true">02</span>
+                            <span class="point-icon" aria-hidden="true">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect pathLength="1" x="3" y="3" width="18" height="7" rx="2"/><rect pathLength="1" x="3" y="14" width="18" height="7" rx="2"/><path pathLength="1" d="M7 6.5h.01M7 17.5h.01"/></svg>
+                            </span>
+                            <div class="point-body">
+                                <h3>Backend Development</h3>
+                                <p>Developing secure backend systems with Node.js, Express.js, PHP, and Laravel, including RESTful APIs, authentication, and efficient data handling.</p>
                             </div>
+                            <span class="point-bar" aria-hidden="true"></span>
+                        </article>
 
-                            <p>
-                                <strong>Core Objective:</strong>
-                                To build scalable, high-performance web applications by combining intuitive frontend experiences with robust backend architecture, delivering reliable, accessible, and impactful digital solutions.
-                            </p>
-                        </div>
+                        <article class="about-point glass-card" data-reveal="delay-4" data-anim="right">
+                            <span class="point-num" aria-hidden="true">03</span>
+                            <span class="point-icon" aria-hidden="true">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M3.3 19a10 10 0 1 1 17.4 0"/><path pathLength="1" d="m12 14 4-4"/></svg>
+                            </span>
+                            <div class="point-body">
+                                <h3>Performance &amp; Quality</h3>
+                                <p>Building fast, scalable, cross-browser compatible applications with clean code, accessibility, version control with Git and GitHub, and long-term maintainability.</p>
+                            </div>
+                            <span class="point-bar" aria-hidden="true"></span>
+                        </article>
+                    </div>
+
+                    <!-- Mission -->
+                    <div class="about-mission" data-reveal="delay-2">
+                        <span class="mission-orb" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </span>
+                        <p>
+                            <strong>Core Objective</strong>
+                            To build scalable, high-performance web applications by combining intuitive frontend experiences with robust backend architecture, delivering reliable, accessible, and impactful digital solutions.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -208,28 +305,37 @@
                     <article class="timeline-item glass-card" data-reveal="delay-1">
                         <div class="timeline-header">
                             <div>
-                                <h3 class="timeline-role">Full Stack Web Developer</h3>
+                                <h3 class="timeline-role">Frontend Web Developer</h3>
                                 <h4 class="timeline-company">New Woodland Hotel (Bhadrapur, Jhapa)</h4>
                             </div>
 
                             <span class="timeline-date">
-                                Present • Full Stack Developer
+                                Completed • Live Client Project
                             </span>
                         </div>
 
                         <p class="timeline-desc">
-                            Currently serving as the Full Stack Web Developer for New Woodland Hotel in Bhadrapur, Jhapa. Responsible for designing, building, and managing the official hotel website and booking architecture, including responsive frontend interfaces, room reservation workflows, database management, and backend administration using PHP, Laravel, and MySQL.
+                            Designed and developed the official website for New Woodland Hotel &amp; Lounge in Bhadrapur, Jhapa as a modern, responsive hotel portfolio website using HTML5, CSS3, JavaScript, and Bootstrap. Built hotel information, room listings, facilities, image gallery, guest reviews, and contact sections with a focus on responsive UI design and cross-device compatibility. The website is completed and live in production.
                         </p>
 
                         <div class="tags">
                             <span>HTML5</span>
                             <span>CSS3</span>
                             <span>JavaScript</span>
-                            <span>PHP</span>
-                            <span>Laravel</span>
-                            <span>MySQL</span>
-                            <span>Hotel Management System</span>
-                            <span>Full Stack</span>
+                            <span>Bootstrap</span>
+                            <span>Responsive Design</span>
+                            <span>UI/UX</span>
+                            <span>Frontend</span>
+                        </div>
+
+                        <div class="card-action-btns" style="margin-top: 15px;">
+                            <a href="https://newwoodlandhotelandlounge.com.np/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                                <span>Hotel Website</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
                         </div>
                     </article>
 
@@ -318,175 +424,142 @@
                     <h2 id="skills-heading">Technical Skills</h2>
                     <div class="header-line"></div>
                     <p class="section-sub">
-                        My technical expertise spans frontend development, backend engineering, database management, UI/UX design, and modern development tools used to build scalable web applications.
+                        The languages, frameworks and tools I use to build full stack web applications, from responsive frontends to server-side APIs.
                     </p>
                 </div>
 
-                <div class="skills-wrapper">
-                    <!-- Frontend -->
-                    <div class="skill-category glass-card" data-reveal="delay-1">
-                        <div class="skill-icon" aria-hidden="true">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                                <polyline points="2 17 12 22 22 17"/>
-                                <polyline points="2 12 12 17 22 12"/>
-                            </svg>
-                        </div>
-
-                        <h3>Frontend Development</h3>
-
-                        <p class="skill-desc">
-                            Creating responsive, accessible, and modern user interfaces with semantic HTML, CSS, JavaScript, and Bootstrap.
-                        </p>
-
-                        <div class="skill-progress-list">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>HTML5 &amp; Semantic Markup</span>
-                                    <span>95%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width:95%"></div>
-                                </div>
-                            </div>
-
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>CSS3 / Flexbox / Grid</span>
-                                    <span>92%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width:92%"></div>
-                                </div>
-                            </div>
-
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>JavaScript (ES6+)</span>
-                                    <span>88%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width:88%"></div>
-                                </div>
-                            </div>
-
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Bootstrap &amp; Responsive Design</span>
-                                    <span>90%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width:90%"></div>
-                                </div>
-                            </div>
+                <!-- Animated tech-stack marquee (decorative; the explorer below lists every skill) -->
+                <div class="tech-marquee" data-reveal="delay-1" aria-hidden="true">
+                    <div class="marquee-row">
+                        <div class="marquee-track">
+                            <span class="tech-chip"><i></i>HTML5</span>
+                            <span class="tech-chip"><i></i>CSS3</span>
+                            <span class="tech-chip"><i></i>JavaScript</span>
+                            <span class="tech-chip"><i></i>React.js</span>
+                            <span class="tech-chip"><i></i>Next.js</span>
+                            <span class="tech-chip"><i></i>Node.js</span>
+                            <span class="tech-chip"><i></i>HTML5</span>
+                            <span class="tech-chip"><i></i>CSS3</span>
+                            <span class="tech-chip"><i></i>JavaScript</span>
+                            <span class="tech-chip"><i></i>React.js</span>
+                            <span class="tech-chip"><i></i>Next.js</span>
+                            <span class="tech-chip"><i></i>Node.js</span>
+                            <span class="tech-chip"><i></i>HTML5</span>
+                            <span class="tech-chip"><i></i>CSS3</span>
+                            <span class="tech-chip"><i></i>JavaScript</span>
+                            <span class="tech-chip"><i></i>React.js</span>
+                            <span class="tech-chip"><i></i>Next.js</span>
+                            <span class="tech-chip"><i></i>Node.js</span>
+                            <span class="tech-chip"><i></i>HTML5</span>
+                            <span class="tech-chip"><i></i>CSS3</span>
+                            <span class="tech-chip"><i></i>JavaScript</span>
+                            <span class="tech-chip"><i></i>React.js</span>
+                            <span class="tech-chip"><i></i>Next.js</span>
+                            <span class="tech-chip"><i></i>Node.js</span>
                         </div>
                     </div>
-
-                    <!-- Backend -->
-                    <div class="skill-category glass-card" data-reveal="delay-2">
-                        <div class="skill-icon" aria-hidden="true">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="3" width="20" height="6" rx="2"/>
-                                <rect x="2" y="15" width="20" height="6" rx="2"/>
-                                <line x1="6" y1="6" x2="6.01" y2="6"/>
-                                <line x1="6" y1="18" x2="6.01" y2="18"/>
-                            </svg>
-                        </div>
-
-                        <h3>Backend Development</h3>
-
-                        <p class="skill-desc">
-                            Building secure server-side applications, RESTful APIs, authentication systems, and relational databases.
-                        </p>
-
-                        <div class="skill-progress-list">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>PHP / Laravel</span>
-                                    <span>85%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width:85%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>MySQL Database</span>
-                                    <span>88%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width:88%"></div>
-                                </div>
-                            </div>
-
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>REST API Development</span>
-                                    <span>82%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width:82%"></div>
-                                </div>
-                            </div>
+                    <div class="marquee-row reverse">
+                        <div class="marquee-track">
+                            <span class="tech-chip"><i></i>Express.js</span>
+                            <span class="tech-chip"><i></i>PHP</span>
+                            <span class="tech-chip"><i></i>Laravel</span>
+                            <span class="tech-chip"><i></i>Git</span>
+                            <span class="tech-chip"><i></i>GitHub</span>
+                            <span class="tech-chip"><i></i>VS Code</span>
+                            <span class="tech-chip"><i></i>Express.js</span>
+                            <span class="tech-chip"><i></i>PHP</span>
+                            <span class="tech-chip"><i></i>Laravel</span>
+                            <span class="tech-chip"><i></i>Git</span>
+                            <span class="tech-chip"><i></i>GitHub</span>
+                            <span class="tech-chip"><i></i>VS Code</span>
+                            <span class="tech-chip"><i></i>Express.js</span>
+                            <span class="tech-chip"><i></i>PHP</span>
+                            <span class="tech-chip"><i></i>Laravel</span>
+                            <span class="tech-chip"><i></i>Git</span>
+                            <span class="tech-chip"><i></i>GitHub</span>
+                            <span class="tech-chip"><i></i>VS Code</span>
+                            <span class="tech-chip"><i></i>Express.js</span>
+                            <span class="tech-chip"><i></i>PHP</span>
+                            <span class="tech-chip"><i></i>Laravel</span>
+                            <span class="tech-chip"><i></i>Git</span>
+                            <span class="tech-chip"><i></i>GitHub</span>
+                            <span class="tech-chip"><i></i>VS Code</span>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Tools -->
-                    <div class="skill-category glass-card" data-reveal="delay-3">
-                        <div class="skill-icon" aria-hidden="true">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-                            </svg>
-                        </div>
-
-                        <h3>Tools &amp; Workflow</h3>
-
-                        <p class="skill-desc">
-                            Leveraging professional tools for version control, UI design, collaboration, deployment, and performance optimization.
-                        </p>
-
-                        <div class="skill-progress-list">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Git &amp; GitHub</span>
-                                    <span>90%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width:90%"></div>
-                                </div>
-                            </div>
-
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Figma</span>
-                                    <span>85%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width:85%"></div>
-                                </div>
-                            </div>
-
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Performance Optimization</span>
-                                    <span>88%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width:88%"></div>
-                                </div>
-                            </div>
-
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Cybersecurity Fundamentals</span>
-                                    <span>80%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width:80%"></div>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Interactive tech-stack explorer -->
+                <div class="stack-explorer" data-reveal="delay-2">
+                    <div class="stack-tabs" role="group" aria-label="Filter skills by category">
+                        <button type="button" class="stack-tab active" aria-pressed="true" data-stack-filter="all">All<span class="stack-count">12</span></button>
+                        <button type="button" class="stack-tab" aria-pressed="false" data-stack-filter="frontend">Frontend<span class="stack-count">5</span></button>
+                        <button type="button" class="stack-tab" aria-pressed="false" data-stack-filter="backend">Backend<span class="stack-count">4</span></button>
+                        <button type="button" class="stack-tab" aria-pressed="false" data-stack-filter="tools">Tools<span class="stack-count">3</span></button>
+                        <span class="stack-tab-indicator" aria-hidden="true"></span>
                     </div>
+
+                    <ul class="stack-grid" id="stack-grid">
+                        <li class="stack-tile" data-category="frontend">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" alt="" width="34" height="34" loading="lazy"></span>
+                            <span class="stack-name">HTML5</span>
+                            <span class="stack-cat">Frontend</span>
+                        </li>
+                        <li class="stack-tile" data-category="frontend">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/css3/css3-original.svg" alt="" width="34" height="34" loading="lazy"></span>
+                            <span class="stack-name">CSS3</span>
+                            <span class="stack-cat">Frontend</span>
+                        </li>
+                        <li class="stack-tile" data-category="frontend">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg" alt="" width="34" height="34" loading="lazy"></span>
+                            <span class="stack-name">JavaScript</span>
+                            <span class="stack-cat">Frontend</span>
+                        </li>
+                        <li class="stack-tile" data-category="frontend">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt="" width="34" height="34" loading="lazy"></span>
+                            <span class="stack-name">React.js</span>
+                            <span class="stack-cat">Frontend</span>
+                        </li>
+                        <li class="stack-tile" data-category="frontend">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nextjs/nextjs-original.svg" alt="" width="34" height="34" loading="lazy" class="invert-dark"></span>
+                            <span class="stack-name">Next.js</span>
+                            <span class="stack-cat">Frontend</span>
+                        </li>
+                        <li class="stack-tile" data-category="backend">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nodejs/nodejs-original.svg" alt="" width="34" height="34" loading="lazy"></span>
+                            <span class="stack-name">Node.js</span>
+                            <span class="stack-cat">Backend</span>
+                        </li>
+                        <li class="stack-tile" data-category="backend">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/express/express-original.svg" alt="" width="34" height="34" loading="lazy" class="invert-dark"></span>
+                            <span class="stack-name">Express.js</span>
+                            <span class="stack-cat">Backend</span>
+                        </li>
+                        <li class="stack-tile" data-category="backend">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/php/php-original.svg" alt="" width="34" height="34" loading="lazy"></span>
+                            <span class="stack-name">PHP</span>
+                            <span class="stack-cat">Backend</span>
+                        </li>
+                        <li class="stack-tile" data-category="backend">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/laravel/laravel-original.svg" alt="" width="34" height="34" loading="lazy"></span>
+                            <span class="stack-name">Laravel</span>
+                            <span class="stack-cat">Backend</span>
+                        </li>
+                        <li class="stack-tile" data-category="tools">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/git/git-original.svg" alt="" width="34" height="34" loading="lazy"></span>
+                            <span class="stack-name">Git</span>
+                            <span class="stack-cat">Tools</span>
+                        </li>
+                        <li class="stack-tile" data-category="tools">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/github/github-original.svg" alt="" width="34" height="34" loading="lazy" class="invert-dark"></span>
+                            <span class="stack-name">GitHub</span>
+                            <span class="stack-cat">Tools</span>
+                        </li>
+                        <li class="stack-tile" data-category="tools">
+                            <span class="stack-icon" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vscode/vscode-original.svg" alt="" width="34" height="34" loading="lazy"></span>
+                            <span class="stack-name">VS Code</span>
+                            <span class="stack-cat">Tools</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -504,22 +577,202 @@
 
                 <!-- Project Filters -->
                 <div class="filter-wrapper" data-reveal="delay-1" role="tablist" aria-label="Project Categories">
-                    <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
-                    <button class="filter-btn" data-filter="fullstack" role="tab" aria-selected="false">Full Stack</button>
-                    <button class="filter-btn" data-filter="frontend" role="tab" aria-selected="false">Frontend</button>
-                    <button class="filter-btn" data-filter="design" role="tab" aria-selected="false">UI / UX</button>
+                    <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+                    <button class="filter-btn" data-filter="fullstack" aria-pressed="false">Full Stack</button>
+                    <button class="filter-btn" data-filter="frontend" aria-pressed="false">Frontend</button>
+                    <button class="filter-btn" data-filter="design" aria-pressed="false">UI / UX</button>
                 </div>
 
                 <div class="portfolio-grid">
+                    <!-- Project: New Woodland Hotel & Lounge -->
+                    <article class="portfolio-card glass-card" data-category="frontend" data-reveal="delay-1">
+                        <div class="card-img-wrapper">
+                            <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="browser-url">newwoodlandhotelandlounge.com.np</span></div>
+                            <img src="NewWoodlandHotel.png" alt="Preview of New Woodland Hotel &amp; Lounge website" class="logo-focus" loading="lazy" width="800" height="450" onerror="this.onerror=null; this.style.display='none';">
+                            <span class="project-badge">Frontend Development</span>
+                            <span class="company-brand-tag">New Woodland Hotel &amp; Lounge</span>
+                        </div>
+
+                        <div class="card-body">
+                            <span class="project-num" aria-hidden="true">01</span>
+                            <div class="project-meta-header">
+                                <div>
+                                    <h3>New Woodland Hotel &amp; Lounge – Hotel Portfolio Website</h3>
+                                    <span class="role-tag">Frontend Developer</span>
+                                </div>
+                            </div>
+
+                            <p class="project-overview">
+                                Developed a modern, responsive hotel portfolio website featuring hotel information, room listings, facilities, image gallery, guest reviews and contact sections, with a focus on responsive UI design and cross-device compatibility.
+                            </p>
+
+                            <details class="case-study">
+
+                                <summary><span class="case-label">Case study</span><span class="case-hint">Challenge · Solution · Result</span><svg class="case-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></summary>
+
+                                <div class="project-details">
+                                    <p><strong>Challenge:</strong> Giving a local hotel a professional online presence where guests can compare rooms, see facilities, and reach the front desk easily from any device.</p>
+                                    <p><strong>Solution:</strong> Built a responsive frontend with HTML5, CSS3, JavaScript, and Bootstrap, featuring room listings, a facilities overview, image gallery, guest reviews, and a contact section that work smoothly across desktop, tablet, and mobile.</p>
+                                    <p><strong>Result:</strong> Completed and launched a live hotel portfolio website that presents the hotel professionally and makes it easy for guests to get in touch.</p>
+                                </div>
+
+                            </details>
+
+                            <div class="project-info">
+                                <span>Completed</span>
+                                <span>Live Production</span>
+                            </div>
+
+                            <div class="tags">
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                                <span>JavaScript</span>
+                                <span>Bootstrap</span>
+                            </div>
+
+                            <div class="card-action-btns">
+                                <a href="https://newwoodlandhotelandlounge.com.np/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+                                    <span>Live Demo</span>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                                        <polyline points="7 7 17 7 17 17"></polyline>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project: Maison Nail Studio -->
+                    <article class="portfolio-card glass-card" data-category="frontend" data-reveal="delay-1">
+                        <div class="card-img-wrapper">
+                            <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="browser-url">github.com/CodeWithDikshya/maison-nail-studio-react</span></div>
+                            <img src="MaisonNailStudio.png" alt="Preview of Maison Nail Studio website" class="logo-focus" loading="lazy" width="800" height="450" onerror="this.onerror=null; this.style.display='none';">
+                            <span class="project-badge">React Frontend</span>
+                            <span class="company-brand-tag">Maison Nail Studio</span>
+                        </div>
+
+                        <div class="card-body">
+                            <span class="project-num" aria-hidden="true">02</span>
+                            <div class="project-meta-header">
+                                <div>
+                                    <h3>Maison Nail Studio – Nail Salon Website</h3>
+                                    <span class="role-tag">Frontend Developer</span>
+                                </div>
+                            </div>
+
+                            <p class="project-overview">
+                                Designed and developed a modern, elegant, and responsive website for a luxury nail studio using React.js and JavaScript, featuring a clean user interface, service listings, pricing sections, and an aesthetically refined layout.
+                            </p>
+
+                            <details class="case-study">
+
+                                <summary><span class="case-label">Case study</span><span class="case-hint">Challenge · Solution · Result</span><svg class="case-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></summary>
+
+                                <div class="project-details">
+                                    <p><strong>Challenge:</strong> Presenting a luxury nail studio's services and pricing online in a way that feels as refined as the in-salon experience, on any device.</p>
+                                    <p><strong>Solution:</strong> Built a component-based React app with Vite, using reusable JSX components, Lucide React icons, and responsive CSS3 layouts for the service listings and pricing sections.</p>
+                                    <p><strong>Result:</strong> Delivered a polished, maintainable single-page website with a smooth user experience across desktop, tablet, and mobile.</p>
+                                </div>
+
+                            </details>
+
+                            <div class="project-info">
+                                <span>React SPA</span>
+                                <span>Mobile Friendly</span>
+                            </div>
+
+                            <div class="tags">
+                                <span>React.js</span>
+                                <span>JavaScript (ES6+)</span>
+                                <span>JSX</span>
+                                <span>CSS3</span>
+                                <span>Vite</span>
+                                <span>Lucide React</span>
+                            </div>
+
+                            <div class="card-action-btns">
+                                <a href="https://github.com/CodeWithDikshya/maison-nail-studio-react" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                                    <span>Source Code</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project: Productify -->
+                    <article class="portfolio-card glass-card" data-category="fullstack" data-reveal="delay-1">
+                        <div class="card-img-wrapper">
+                            <div class="api-preview" aria-hidden="true">
+                                <div class="api-preview-bar"><span></span><span></span><span></span></div>
+                                <pre><code><span class="api-method">GET</span>    /api/products
+<span class="api-method">POST</span>   /api/products
+<span class="api-method">PUT</span>    /api/products/:id
+<span class="api-method">DELETE</span> /api/products/:id
+<span class="api-comment">// Express · Drizzle · PostgreSQL</span></code></pre>
+                            </div>
+                            <span class="project-badge">Backend REST API</span>
+                            <span class="company-brand-tag">Productify</span>
+                        </div>
+
+                        <div class="card-body">
+                            <span class="project-num" aria-hidden="true">03</span>
+                            <div class="project-meta-header">
+                                <div>
+                                    <h3>Productify – Product Management REST API</h3>
+                                    <span class="role-tag">Backend Developer</span>
+                                </div>
+                            </div>
+
+                            <p class="project-overview">
+                                A backend-focused product management application built with Node.js and Express.js, using PostgreSQL for data storage and Drizzle ORM for database operations, with Clerk handling authentication.
+                            </p>
+
+                            <details class="case-study">
+
+                                <summary><span class="case-label">Case study</span><span class="case-hint">Challenge · Solution · Result</span><svg class="case-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></summary>
+
+                                <div class="project-details">
+                                    <p><strong>Challenge:</strong> Designing a structured, maintainable server-side application that manages product data securely through a clean API.</p>
+                                    <p><strong>Solution:</strong> Built RESTful API endpoints with Express.js, modelled the database with Drizzle ORM on PostgreSQL, integrated Clerk for authentication, and configured CORS for client access.</p>
+                                    <p><strong>Result:</strong> Delivered a well-organised backend with clear API architecture and reliable database integration.</p>
+                                </div>
+
+                            </details>
+
+                            <div class="project-info">
+                                <span>REST API</span>
+                                <span>Backend</span>
+                                <span>Authentication</span>
+                            </div>
+
+                            <div class="tags">
+                                <span>Node.js</span>
+                                <span>Express.js</span>
+                                <span>PostgreSQL</span>
+                                <span>Drizzle ORM</span>
+                                <span>JavaScript</span>
+                                <span>Clerk</span>
+                                <span>CORS</span>
+                            </div>
+
+                            <div class="card-action-btns">
+                                <a href="https://github.com/CodeWithDikshya/Productify" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                                    <span>Source Code</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
                     <!-- Project 1: Divine Route Nepal -->
                     <article class="portfolio-card glass-card" data-category="fullstack" data-reveal="delay-1">
                         <div class="card-img-wrapper">
+                            <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="browser-url">divineroute.ktmrush.com</span></div>
                             <img src="DivineRoute.png" alt="Preview of Divine Route Nepal tourism website" class="logo-focus" loading="lazy" width="800" height="450">
                             <span class="project-badge">Fullstack Laravel Project</span>
                             <span class="company-brand-tag">Divine Route Nepal</span>
                         </div>
 
                         <div class="card-body">
+                            <span class="project-num" aria-hidden="true">04</span>
                             <div class="project-meta-header">
                                 <div>
                                     <h3>Divine Route Nepal</h3>
@@ -531,11 +784,17 @@
                                 A fullstack tourism web platform developed using PHP, Laravel, and MySQL during my internship. Built to provide travelers with an intuitive platform for exploring pilgrimage destinations, tour packages, booking workflows, and travel information.
                             </p>
 
-                            <div class="project-details">
-                                <p><strong>Challenge:</strong> Building a robust fullstack platform with database-driven tour packages, dynamic content management, and responsive interfaces.</p>
-                                <p><strong>Solution:</strong> Developed Laravel MVC backend architecture, MySQL database schemas, dynamic package routing, responsive page layouts, and optimized client performance.</p>
-                                <p><strong>Result:</strong> Delivered a fast, reliable fullstack production website supporting live user browsing and booking inquiries.</p>
-                            </div>
+                            <details class="case-study">
+
+                                <summary><span class="case-label">Case study</span><span class="case-hint">Challenge · Solution · Result</span><svg class="case-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></summary>
+
+                                <div class="project-details">
+                                    <p><strong>Challenge:</strong> Building a robust fullstack platform with database-driven tour packages, dynamic content management, and responsive interfaces.</p>
+                                    <p><strong>Solution:</strong> Developed Laravel MVC backend architecture, MySQL database schemas, dynamic package routing, responsive page layouts, and optimized client performance.</p>
+                                    <p><strong>Result:</strong> Delivered a fast, reliable fullstack production website supporting live user browsing and booking inquiries.</p>
+                                </div>
+
+                            </details>
 
                             <div class="project-info">
                                 <span>Laravel Fullstack</span>
@@ -569,12 +828,14 @@
                     <!-- Project 2: OptiNest Eyecare -->
                     <article class="portfolio-card glass-card" data-category="fullstack" data-reveal="delay-2">
                         <div class="card-img-wrapper">
+                            <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="browser-url">optinest-eyecare · laravel app</span></div>
                             <img src="OptiNestEyeCare.jpg" alt="OptiNest Eyecare Fullstack E-Commerce Website Preview" class="logo-focus" loading="lazy" width="800" height="450" onerror="this.onerror=null; this.src='Cover page.jpg';">
                             <span class="project-badge">Academic Fullstack Project</span>
                             <span class="company-brand-tag">OptiNest Eyecare</span>
                         </div>
 
                         <div class="card-body">
+                            <span class="project-num" aria-hidden="true">05</span>
                             <div class="project-meta-header">
                                 <div>
                                     <h3>OptiNest Eyecare</h3>
@@ -586,11 +847,17 @@
                                 A fullstack optical e-commerce web application created as an academic project. Engineered with HTML5, CSS3, JavaScript, Python, and MySQL to deliver a clean, intuitive, and accessible online shopping experience for prescription glasses, sunglasses, and eye-care services.
                             </p>
 
-                            <div class="project-details">
-                                <p><strong>Challenge:</strong> Addressing the lack of access to quality eyewear and vision information in Nepal by creating a reliable online e-commerce platform.</p>
-                                <p><strong>Solution:</strong> Developed responsive frontend product galleries, category filtering, cart workflows, database architecture, and backend application logic using Python and MySQL.</p>
-                                <p><strong>Result:</strong> Successfully built and presented a complete optical e-commerce prototype with full database integration and intuitive navigation.</p>
-                            </div>
+                            <details class="case-study">
+
+                                <summary><span class="case-label">Case study</span><span class="case-hint">Challenge · Solution · Result</span><svg class="case-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></summary>
+
+                                <div class="project-details">
+                                    <p><strong>Challenge:</strong> Addressing the lack of access to quality eyewear and vision information in Nepal by creating a reliable online e-commerce platform.</p>
+                                    <p><strong>Solution:</strong> Developed responsive frontend product galleries, category filtering, cart workflows, database architecture, and backend application logic using Python and MySQL.</p>
+                                    <p><strong>Result:</strong> Successfully built and presented a complete optical e-commerce prototype with full database integration and intuitive navigation.</p>
+                                </div>
+
+                            </details>
 
                             <div class="project-info">
                                 <span>Academic Project</span>
@@ -608,7 +875,7 @@
                             </div>
 
                             <div class="card-action-btns">
-                                <a href="OptiNestEyeCare.jpg" class="btn btn-sm btn-secondary" data-lightbox="optinest" data-gallery="OptiNestEyeCare.jpg,OptiNesteyecare.jpg,Cover page.jpg,OptiNest_Preview_1.jpg,OptiNest_Preview_2.jpg" aria-label="View OptiNest Eyecare Project Preview Screenshots">
+                                <a href="OptiNestEyeCare.jpg" class="btn btn-sm btn-secondary" data-lightbox="optinest" data-gallery="OptiNestEyeCare.jpg,Cover page.jpg" aria-label="View OptiNest Eyecare Project Preview Screenshots">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8"/>
                                         <circle cx="12" cy="12" r="3"/>
@@ -622,12 +889,14 @@
                     <!-- Project 3: Lumine Beads -->
                     <article class="portfolio-card glass-card" data-category="frontend design" data-reveal="delay-3">
                         <div class="card-img-wrapper">
+                            <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="browser-url">github.com/CodeWithDikshya/LumineBeads</span></div>
                             <img src="Luminebeads.png" alt="Lumine Beads handcrafted jewelry website preview" class="logo-focus" loading="lazy" width="800" height="450">
                             <span class="project-badge">E-Commerce Website</span>
                             <span class="company-brand-tag">Lumine Beads</span>
                         </div>
 
                         <div class="card-body">
+                            <span class="project-num" aria-hidden="true">06</span>
                             <div class="project-meta-header">
                                 <div>
                                     <h3>Lumine Beads</h3>
@@ -639,11 +908,17 @@
                                 A modern handcrafted jewelry website designed to showcase premium bead collections through elegant layouts, engaging product displays, and a responsive shopping experience.
                             </p>
 
-                            <div class="project-details">
-                                <p><strong>Challenge:</strong> Creating a visually appealing shopping experience while ensuring smooth browsing across desktop and mobile devices.</p>
-                                <p><strong>Solution:</strong> Designed responsive product galleries, modern typography, reusable UI components, and interactive hover animations to enhance product presentation.</p>
-                                <p><strong>Result:</strong> Delivered a clean and responsive interface that highlights handcrafted products while maintaining excellent usability and visual consistency.</p>
-                            </div>
+                            <details class="case-study">
+
+                                <summary><span class="case-label">Case study</span><span class="case-hint">Challenge · Solution · Result</span><svg class="case-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></summary>
+
+                                <div class="project-details">
+                                    <p><strong>Challenge:</strong> Creating a visually appealing shopping experience while ensuring smooth browsing across desktop and mobile devices.</p>
+                                    <p><strong>Solution:</strong> Designed responsive product galleries, modern typography, reusable UI components, and interactive hover animations to enhance product presentation.</p>
+                                    <p><strong>Result:</strong> Delivered a clean and responsive interface that highlights handcrafted products while maintaining excellent usability and visual consistency.</p>
+                                </div>
+
+                            </details>
 
                             <div class="project-info">
                                 <span>E-Commerce</span>
@@ -671,12 +946,14 @@
                     <!-- Project 4: Dhanawantari Girls Hostel -->
                     <article class="portfolio-card glass-card" data-category="frontend" data-reveal="delay-1">
                         <div class="card-img-wrapper">
+                            <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="browser-url">github.com/CodeWithDikshya/DhanawantariGirlsHostel</span></div>
                             <img src="DhanawantariHostel.png" alt="Dhanawantari Girls Hostel website preview" class="logo-focus" loading="lazy" width="800" height="450">
                             <span class="project-badge">Web Portal</span>
                             <span class="company-brand-tag">Dhanawantari Girls Hostel</span>
                         </div>
 
                         <div class="card-body">
+                            <span class="project-num" aria-hidden="true">07</span>
                             <div class="project-meta-header">
                                 <div>
                                     <h3>Dhanawantari Girls Hostel</h3>
@@ -688,11 +965,17 @@
                                 A responsive hostel management website designed to help students explore facilities, accommodation details, room information, and connect through social media platforms.
                             </p>
 
-                            <div class="project-details">
-                                <p><strong>Challenge:</strong> Students had limited access to organized accommodation information and a direct way to connect with the hostel online.</p>
-                                <p><strong>Solution:</strong> Developed a structured website featuring room information, facility highlights, responsive layouts, intuitive navigation, and social media connections.</p>
-                                <p><strong>Result:</strong> Built an accessible and responsive web portal that improves communication and connects students directly through social media.</p>
-                            </div>
+                            <details class="case-study">
+
+                                <summary><span class="case-label">Case study</span><span class="case-hint">Challenge · Solution · Result</span><svg class="case-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></summary>
+
+                                <div class="project-details">
+                                    <p><strong>Challenge:</strong> Students had limited access to organized accommodation information and a direct way to connect with the hostel online.</p>
+                                    <p><strong>Solution:</strong> Developed a structured website featuring room information, facility highlights, responsive layouts, intuitive navigation, and social media connections.</p>
+                                    <p><strong>Result:</strong> Built an accessible and responsive web portal that improves communication and connects students directly through social media.</p>
+                                </div>
+
+                            </details>
 
                             <div class="project-info">
                                 <span>Hostel Portal</span>
@@ -734,6 +1017,8 @@
                     <article class="certificate-card glass-card" data-reveal="delay-1">
                         <div class="cert-img-wrapper">
                             <img src="Freecodecamp.png" alt="freeCodeCamp Responsive Web Design Developer Certification" class="doc-cover" loading="lazy" width="800" height="550" onerror="this.onerror=null; this.src='webdev-cert.svg';">
+                            <span class="cert-issuer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg>freeCodeCamp</span>
+                            <span class="cert-type">Certificate</span>
                             <div class="cert-overlay">
                                 <a href="Freecodecamp.png" class="view-cert-btn" data-lightbox="cert1" aria-label="View freeCodeCamp Responsive Web Design Certificate">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -746,6 +1031,7 @@
                         </div>
 
                         <div class="cert-body">
+                            <div class="cert-meta"><span class="cert-org">freeCodeCamp</span><span class="cert-date">Sep 2024</span></div>
                             <h3>Responsive Web Design</h3>
                             <p>freeCodeCamp Developer Certification issued on September 4, 2024 (~300 hours of coursework). Verified by Quincy Larson (Executive Director, freeCodeCamp.org), covering semantic HTML5, CSS3, Flexbox, CSS Grid, and responsive web design.</p>
                             <div class="tags">
@@ -756,6 +1042,7 @@
                                 <span>Flexbox</span>
                                 <span>CSS Grid</span>
                             </div>
+                            <a href="Freecodecamp.png" class="cert-link" data-lightbox="cert1-link" aria-label="View Certificate: Responsive Web Design"><span>View Certificate</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                         </div>
                     </article>
 
@@ -763,6 +1050,8 @@
                     <article class="certificate-card glass-card" data-reveal="delay-2">
                         <div class="cert-img-wrapper">
                             <img src="Cybersecurity.png" alt="Cisco Introduction to Cybersecurity Certification" class="doc-cover" loading="lazy" width="800" height="550" onerror="this.onerror=null; this.src='cybersecurity-cert.svg';">
+                            <span class="cert-issuer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg>Cisco Networking Academy</span>
+                            <span class="cert-type">Certificate</span>
                             <div class="cert-overlay">
                                 <a href="Cybersecurity.png" class="view-cert-btn" data-lightbox="cert2" aria-label="View Cisco Introduction to Cybersecurity Certificate">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -775,6 +1064,7 @@
                         </div>
 
                         <div class="cert-body">
+                            <div class="cert-meta"><span class="cert-org">Cisco Networking Academy</span><span class="cert-date">Jul 2025</span></div>
                             <h3>Introduction to Cybersecurity</h3>
                             <p>Cisco Networking Academy Certification completed on July 12, 2025. Covers network security principles, threat analysis, data privacy, encryption fundamentals, and secure system practices.</p>
                             <div class="tags">
@@ -784,14 +1074,16 @@
                                 <span>Threat Analysis</span>
                                 <span>Encryption</span>
                             </div>
+                            <a href="Cybersecurity.png" class="cert-link" data-lightbox="cert2-link" aria-label="View Certificate: Introduction to Cybersecurity"><span>View Certificate</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                         </div>
                     </article>
 
-                    <!-- Certificate 3: Cisco Cybersecurity Awareness -->
-                                       <!-- Certificate 3: Cyber Crime & Cybersecurity Workshop -->
+                    <!-- Certificate 3: Cyber Crime & Cybersecurity Workshop -->
                     <article class="certificate-card glass-card" data-reveal="delay-3">
                         <div class="cert-img-wrapper">
                             <img src="Cybersecurity Awareness.jpeg" alt="Haldibari Secondary School Cyber Crime &amp; Security Workshop Certificate" class="doc-cover" loading="lazy" width="800" height="550" onerror="if(this.src.indexOf('.jpg')===-1){this.src='Cybersecurity Awareness.jpg';}else if(this.src.indexOf('.png')===-1){this.src='Cybersecurity Awareness.png';}else{this.onerror=null;this.src='cybersecurity-awareness-cert.svg';}">
+                            <span class="cert-issuer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg>Haldibari Secondary School</span>
+                            <span class="cert-type">Letter</span>
                             <div class="cert-overlay">
                                 <a href="Cybersecurity Awareness.jpeg" class="view-cert-btn" data-lightbox="cert3" aria-label="View Cyber Crime &amp; Cyber Security Workshop Certificate Letter">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -804,6 +1096,7 @@
                         </div>
 
                         <div class="cert-body">
+                            <div class="cert-meta"><span class="cert-org">Haldibari Secondary School</span><span class="cert-date">Workshop</span></div>
                             <h3>Cyber Crime &amp; Security Workshop</h3>
                             <p>Official Certification &amp; Recommendation Letter from Haldibari Secondary School, Jhapa. Delivered a 1-day community awareness workshop on "Cyber Crime and Cyber Security" for Grade 9 &amp; Grade 12 students as part of BIM 6th Semester (Mechi Multiple Campus, Bhadrapur).</p>
                             <div class="tags">
@@ -814,12 +1107,15 @@
                                 <span>Haldibari School</span>
                                 <span>Community Outreach</span>
                             </div>
+                            <a href="Cybersecurity Awareness.jpeg" class="cert-link" data-lightbox="cert3-link" aria-label="View Certificate Letter: Cyber Crime &amp; Security Workshop"><span>View Certificate Letter</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                         </div>
                     </article>
                     <!-- Certificate 4: KTM Rush Internship Certificate -->
                     <article class="certificate-card glass-card" data-type="doc" data-reveal="delay-4">
                         <div class="cert-img-wrapper">
                             <img src="Internship Certificate.jpg" alt="KTM Rush Pvt. Ltd. Internship Certificate Recommendation Letter" class="doc-cover" loading="lazy" width="800" height="550" onerror="this.onerror=null; this.src='Internship Certificate.png';">
+                            <span class="cert-issuer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg>KTM Rush Pvt. Ltd.</span>
+                            <span class="cert-type">Letter</span>
                             <div class="cert-overlay">
                                 <a href="Internship Certificate.jpg" class="view-cert-btn" data-lightbox="cert4" aria-label="View KTM Rush Internship Recommendation Letter">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -832,6 +1128,7 @@
                         </div>
 
                         <div class="cert-body">
+                            <div class="cert-meta"><span class="cert-org">KTM Rush Pvt. Ltd.</span><span class="cert-date">Mar 2026</span></div>
                             <h3>Full Stack Web Developer Internship</h3>
                             <p>Official Internship Completion Certificate &amp; Letter of Recommendation from KTM Rush Pvt. Ltd. (Kathmandu, Nepal), signed by COO Eraz Shrestha (Jan 04, 2026 – Mar 13, 2026).</p>
                             <div class="tags">
@@ -841,6 +1138,7 @@
                                 <span>Web Development</span>
                                 <span>Recommendation</span>
                             </div>
+                            <a href="Internship Certificate.jpg" class="cert-link" data-lightbox="cert4-link" aria-label="View Full Letter: Full Stack Web Developer Internship"><span>View Full Letter</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                         </div>
                     </article>
 
@@ -848,6 +1146,8 @@
                     <article class="certificate-card glass-card" data-type="doc" data-reveal="delay-1">
                         <div class="cert-img-wrapper">
                             <img src="Laravelframework.jpg" alt="Web Development using Laravel Framework Certificate - Mechi Multiple Campus" class="doc-cover" loading="lazy" width="800" height="550" onerror="if(this.src.indexOf('Laravel%20Certificate.jpg')===-1){this.src='Laravel Certificate.jpg';}else{this.onerror=null;this.src='laravel-cert.svg';}">
+                            <span class="cert-issuer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg>Tribhuvan University</span>
+                            <span class="cert-type">Certificate</span>
                             <div class="cert-overlay">
                                 <a href="Laravelframework.jpg" class="view-cert-btn" data-lightbox="cert5" aria-label="View Laravel Framework Workshop Certificate">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -860,6 +1160,7 @@
                         </div>
 
                         <div class="cert-body">
+                            <div class="cert-meta"><span class="cert-org">Tribhuvan University</span><span class="cert-date">32-hour workshop</span></div>
                             <h3>Web Development using Laravel Framework</h3>
                             <p>32-hour intensive technical workshop certificate awarded by Department of Computer Science and Applications, Mechi Multiple Campus (Tribhuvan University, Feb 04 – Feb 11, 2024).</p>
                             <div class="tags">
@@ -869,6 +1170,7 @@
                                 <span>Web Development</span>
                                 <span>Mechi Campus</span>
                             </div>
+                            <a href="Laravelframework.jpg" class="cert-link" data-lightbox="cert5-link" aria-label="View Certificate: Web Development using Laravel Framework"><span>View Certificate</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                         </div>
                     </article>
 
@@ -876,6 +1178,8 @@
                     <article class="certificate-card glass-card" data-type="doc" data-reveal="delay-2">
                         <div class="cert-img-wrapper">
                             <img src="MachineLearning with Python.jpg" alt="Machine Learning with Python Certificate - Mechi Multiple Campus" class="doc-cover" loading="lazy" width="800" height="550" onerror="if(this.src.indexOf('Machine%20Learning.jpg')===-1){this.src='Machine Learning.jpg';}else{this.onerror=null;this.src='ml-cert.svg';}">
+                            <span class="cert-issuer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg>Tribhuvan University</span>
+                            <span class="cert-type">Certificate</span>
                             <div class="cert-overlay">
                                 <a href="MachineLearning with Python.jpg" class="view-cert-btn" data-lightbox="cert6" aria-label="View Machine Learning with Python Certificate">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -888,6 +1192,7 @@
                         </div>
 
                         <div class="cert-body">
+                            <div class="cert-meta"><span class="cert-org">Tribhuvan University</span><span class="cert-date">24-hour workshop</span></div>
                             <h3>Machine Learning with Python</h3>
                             <p>24-hour technical workshop certificate awarded by Department of Computer Science and Applications, Mechi Multiple Campus (Tribhuvan University, Nov 20 – Nov 26, 2025).</p>
                             <div class="tags">
@@ -897,6 +1202,7 @@
                                 <span>Data Science</span>
                                 <span>Mechi Campus</span>
                             </div>
+                            <a href="MachineLearning with Python.jpg" class="cert-link" data-lightbox="cert6-link" aria-label="View Certificate: Machine Learning with Python"><span>View Certificate</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                         </div>
                     </article>
                 </div>
@@ -910,7 +1216,7 @@
                     <h2 id="contact-heading">Let's Connect</h2>
                     <div class="header-line"></div>
                     <p class="section-sub">
-                        Looking for a Full Stack Developer? I'm available for internships, full-time opportunities, freelance projects, and collaborative software development.
+                        Looking for a Full Stack Developer? I'm open to full-time opportunities and ready to contribute to your team.
                     </p>
                 </div>
 
@@ -1004,13 +1310,14 @@
                             </div>
                             <div>
                                 <span>Availability</span>
-                                <p class="highlight-status">Full Stack Development Internships &amp; Freelance Projects</p>
+                                <p class="highlight-status">Open to Full-Time Full Stack Developer Roles</p>
                             </div>
                         </div>
 
                         <!-- GitHub & LinkedIn -->
                         <div class="social-links-box">
                             <span>Professional Profiles</span>
+                            <div class="social-row">
                             <a href="https://github.com/CodeWithDikshya" target="_blank" rel="noopener noreferrer" class="social-btn">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.28-.01-1.23-.02-2.23-3.01.55-3.79-.74-4.03-1.42-.13-.34-.72-1.41-1.23-1.69-.42-.23-1.02-.79-.02-.8.95-.02 1.62.87 1.85 1.23 1.08 1.82 2.81 1.31 3.5.99.1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.39 1.23-3.22-.12-.31-.54-1.54.12-3.19 0 0 1-.31 3.3 1.23a11.4 11.4 0 0 1 6 0c2.29-1.54 3.29-1.23 3.29-1.23.66 1.65.24 2.88.12 3.19.77.83 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.49 5.92.43.38.81 1.1.81 2.23 0 1.61-.02 2.9-.02 3.3 0 .32.22.69.83.57A12.02 12.02 0 0 0 24 12C24 5.37 18.63 0 12 0z"></path>
@@ -1018,8 +1325,10 @@
                                 GitHub
                             </a>
                             <a href="https://www.linkedin.com/in/dikshya-thapa17" target="_blank" rel="noopener noreferrer" class="social-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
                                 LinkedIn
                             </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1031,9 +1340,12 @@
             <div class="modal-content">
                 <button class="modal-close" id="modal-close" aria-label="Close document preview">&times;</button>
                 <button class="modal-nav modal-prev" id="modal-prev" aria-label="Previous screenshot" style="display:none;">&#10094;</button>
-                <img id="modal-img" src="" alt="Document or Screenshot Preview" width="800" height="550">
+                <figure class="modal-figure">
+                    <img id="modal-img" src="" alt="Document or Screenshot Preview" width="800" height="550">
+                    <figcaption id="modal-caption" class="modal-caption"></figcaption>
+                </figure>
                 <button class="modal-nav modal-next" id="modal-next" aria-label="Next screenshot" style="display:none;">&#10095;</button>
-                <div id="modal-counter" class="modal-counter" style="display:none;"></div>
+                <div id="modal-counter" class="modal-counter" style="display:none;" aria-live="polite"></div>
             </div>
         </div>
 
@@ -1045,64 +1357,98 @@
 
     <!-- Footer -->
     <footer class="footer" role="contentinfo">
+        <div class="footer-glow" aria-hidden="true"></div>
         <div class="container">
+            <!-- Call to action -->
+            <div class="footer-cta" data-reveal>
+                <div>
+                    <span class="footer-eyebrow">Open to full-time roles</span>
+                    <h2 class="footer-cta-title">Let's build something <em>great</em> together.</h2>
+                    <p class="footer-cta-sub">Have a full-time role or project in mind? I'd love to hear about it.</p>
+                </div>
+                <div class="footer-cta-actions">
+                    <a href="#contact" class="btn btn-primary">
+                        <span>Get in touch</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                    <a href="mailto:thapa.dikshya2003@gmail.com" class="btn footer-btn-ghost">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+                        <span>Email me</span>
+                    </a>
+                </div>
+            </div>
+
             <div class="footer-content">
-                <div class="footer-brand">
+                <div class="footer-brand" data-reveal="delay-1">
                     <a href="#" class="footer-logo">Dikshya<span>.</span></a>
                     <p class="footer-description">
-                        Full Stack Developer passionate about building scalable, secure, and user-focused web applications with modern frontend technologies, robust backend architecture, and clean, maintainable code.
+                        Full Stack Developer building scalable, secure, and user-focused web applications with modern frontend technologies, robust backend architecture, and clean, maintainable code.
                     </p>
-                    <div class="footer-contact">
-                        <div class="footer-contact-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                <polyline points="22 6 12 13 2 6"/>
-                            </svg>
-                            <span>thapa.dikshya2003@gmail.com</span>
-                        </div>
-                        <div class="footer-contact-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                                <circle cx="12" cy="10" r="3"/>
-                            </svg>
-                            <span>Jhapa, Nepal</span>
-                        </div>
-                        <div class="footer-contact-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                                <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
-                            </svg>
-                            <span class="available">Open for Full Stack Internships &amp; Full-Time Roles</span>
-                        </div>
+                    <div class="footer-socials">
+                        <a href="https://github.com/CodeWithDikshya" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="GitHub profile">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.28-.01-1.23-.02-2.23-3.01.55-3.79-.74-4.03-1.42-.13-.34-.72-1.41-1.23-1.69-.42-.23-1.02-.79-.02-.8.95-.02 1.62.87 1.85 1.23 1.08 1.82 2.81 1.31 3.5.99.1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.39 1.23-3.22-.12-.31-.54-1.54.12-3.19 0 0 1-.31 3.3 1.23a11.4 11.4 0 0 1 6 0c2.29-1.54 3.29-1.23 3.29-1.23.66 1.65.24 2.88.12 3.19.77.83 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.49 5.92.43.38.81 1.1.81 2.23 0 1.61-.02 2.9-.02 3.3 0 .32.22.69.83.57A12.02 12.02 0 0 0 24 12C24 5.37 18.63 0 12 0z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/dikshya-thapa17" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="LinkedIn profile">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+                        </a>
+                        <a href="mailto:thapa.dikshya2003@gmail.com" class="footer-social" aria-label="Send an email">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+                        </a>
                     </div>
                 </div>
 
-                <div class="footer-column">
+                <nav class="footer-column" aria-label="Footer navigation" data-reveal="delay-2">
                     <h4>Navigation</h4>
-                    <a href="#about">About</a>
-                    <a href="#experience">Experience</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#portfolio">Projects</a>
-                    <a href="#certificates">Certificates</a>
-                    <a href="#contact">Contact</a>
+                    <div class="footer-links">
+                        <a href="#about">About</a>
+                        <a href="#experience">Experience</a>
+                        <a href="#skills">Skills</a>
+                        <a href="#portfolio">Projects</a>
+                        <a href="#certificates">Certificates</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </nav>
+
+                <div class="footer-column" data-reveal="delay-3">
+                    <h4>Tech Stack</h4>
+                    <ul class="footer-stack">
+                        <li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>React.js</li>
+                        <li>Next.js</li><li>Node.js</li><li>Express.js</li><li>PHP</li>
+                        <li>Laravel</li><li>Git</li><li>GitHub</li><li>VS Code</li>
+                    </ul>
                 </div>
 
-                <div class="footer-column">
-                    <h4>Core Technologies</h4>
-                    <p>HTML5 • CSS3 • JavaScript • Bootstrap</p>
-                    <p>PHP • Laravel • Python • MySQL</p>
-                    <p>Git • GitHub • VS Code • Figma</p>
+                <div class="footer-column" data-reveal="delay-4">
+                    <h4>Contact</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+                            <a href="mailto:thapa.dikshya2003@gmail.com">thapa.dikshya2003@gmail.com</a>
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>Jhapa, Nepal</span>
+                        </li>
+                        <li class="footer-available">
+                            <span class="live-dot" aria-hidden="true"></span>
+                            <span>Open to Full-Time Roles</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>© 2026 Dikshya Thapa. All Rights Reserved.</p>
-                <p>Designed &amp; Developed by Dikshya Thapa</p>
+                <p>© <span id="current-year">2026</span> Dikshya Thapa. All Rights Reserved.</p>
+                <a href="#" class="footer-top-link" aria-label="Back to top">
+                    <span>Back to top</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                </a>
             </div>
         </div>
     </footer>
 
     <!-- Script -->
+    <script src="animations.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
