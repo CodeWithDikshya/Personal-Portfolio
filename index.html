@@ -1216,10 +1216,12 @@
 
                 <div class="contact-wrapper">
                     <!-- Contact Form -->
-                    <form class="contact-form" id="contact-form" action="https://formsubmit.co/thapa.dikshya2003@gmail.com" method="POST" data-reveal="delay-1" novalidate aria-label="Contact Dikshya Thapa">
-                        <input type="hidden" name="_subject" value="New Portfolio Contact Message from Portfolio Website">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_template" value="table">
+                    <form class="contact-form" id="contact-form" action="/api/contact" method="POST" data-reveal="delay-1" novalidate aria-label="Contact Dikshya Thapa">
+                        <!-- Spam trap: hidden from people, bots fill it in -->
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="website">Website</label>
+                            <input id="website" type="text" name="website" tabindex="-1" autocomplete="off">
+                        </div>
 
                         <div class="form-group">
                             <label for="name">

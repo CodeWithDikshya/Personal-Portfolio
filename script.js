@@ -226,53 +226,58 @@ function initContactFormValidation() {
             submitBtn.innerHTML = '<span>Sending Message...</span>';
         }
 
-        // Serverless AJAX Endpoint (delivers directly to thapa.dikshya2003@gmail.com)
-        const apiEndpoint = "https://formsubmit.co/ajax/thapa.dikshya2003@gmail.com";
-        const formData = new FormData(form);
+        const showStatus = (type, text) => {
+            if (!formStatus) return;
+            formStatus.className = 'form-status ' + type;
+            formStatus.textContent = text;
+            formStatus.style.display = 'block';
+        };
 
-        fetch(apiEndpoint, {
-            method: "POST",
-            headers: { 
-                "Accept": "application/json"
+        // Netlify Function that sends the message through Brevo (API key stays on the server)
+        const honeypot = form.querySelector('#website');
+        fetch(form.getAttribute('action') || '/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
-            body: formData
+            body: JSON.stringify({
+                name: nameVal,
+                email: emailVal,
+                message: messageVal,
+                website: honeypot ? honeypot.value : ''
+            })
         })
         .then(async response => {
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnHTML;
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok || !result.ok) {
+                // Show field-level errors returned by the server, if any
+                if (result.fields) {
+                    if (result.fields.name && nameError) nameError.textContent = result.fields.name;
+                    if (result.fields.email && emailError) emailError.textContent = result.fields.email;
+                    if (result.fields.message && messageError) messageError.textContent = result.fields.message;
+                }
+                throw new Error(result.error || 'Sorry, your message could not be sent. Please try again or email me directly.');
             }
 
-            if (formStatus) {
-                formStatus.className = 'form-status success';
-                formStatus.textContent = 'Thank you, your message has been sent successfully.';
-                formStatus.style.display = 'block';
-            }
-
+            showStatus('success', 'Thank you, your message has been sent successfully. I will get back to you soon.');
             form.reset();
-
             setTimeout(() => {
                 if (formStatus) formStatus.style.display = 'none';
             }, 6000);
         })
         .catch(error => {
-            console.error("Submission Error:", error);
+            console.error('Submission Error:', error);
+            const text = error instanceof TypeError
+                ? 'Network error. Please check your connection or email me directly.'
+                : error.message;
+            showStatus('error', text);
+        })
+        .finally(() => {
             if (submitBtn) {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnHTML;
             }
-
-            if (formStatus) {
-                formStatus.className = 'form-status success';
-                formStatus.textContent = 'Thank you, your message has been sent successfully.';
-                formStatus.style.display = 'block';
-            }
-
-            form.reset();
-
-            setTimeout(() => {
-                if (formStatus) formStatus.style.display = 'none';
-            }, 6000);
         });
     });
 }

@@ -2,3 +2,7 @@
 [build]
   publish = "."
   command = ""
+
+# Serverless functions (contact form -> Brevo)
+[functions]
+  directory = "netlify/functions"

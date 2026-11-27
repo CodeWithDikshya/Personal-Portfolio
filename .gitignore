@@ -1,0 +1,10 @@
+# Local secrets (never commit API keys)
+.env
+.env.*
+
+# Netlify CLI local state
+.netlify/
+
+# OS / editor
+.DS_Store
+Thumbs.db
