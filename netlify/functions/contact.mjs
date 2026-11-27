@@ -120,16 +120,9 @@ export default async (req) => {
 
         if (!res.ok) {
             const detail = await res.text().catch(() => '');
+            // Brevo's reason goes to the Netlify function log only, never to visitors
             console.error(`Brevo responded ${res.status}: ${detail}`);
-            // TEMPORARY diagnostics: Brevo's error code/message (never contains the API key)
-            let reason = '';
-            try {
-                const parsed = JSON.parse(detail);
-                reason = `${parsed.code || ''}: ${parsed.message || ''}`.slice(0, 300);
-            } catch {
-                reason = detail.slice(0, 300);
-            }
-            return json(502, { ok: false, error: 'Sorry, your message could not be sent. Please try again or email me directly.', brevoStatus: res.status, reason });
+            return json(502, { ok: false, error: 'Sorry, your message could not be sent. Please try again or email me directly.' });
         }
 
         return json(200, { ok: true });
