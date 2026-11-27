@@ -80,7 +80,9 @@ export default async (req) => {
 
     if (!apiKey || !senderEmail || !toEmail) {
         console.error('Contact form is missing BREVO_API_KEY, BREVO_SENDER_EMAIL or CONTACT_TO_EMAIL.');
-        return json(500, { ok: false, error: 'The contact form is not configured yet. Please email me directly.' });
+        // TEMPORARY diagnostics: names of missing variables only (never their values)
+        const missing = ['BREVO_API_KEY', 'BREVO_SENDER_EMAIL', 'CONTACT_TO_EMAIL'].filter((k) => !process.env[k]);
+        return json(500, { ok: false, error: 'The contact form is not configured yet. Please email me directly.', missing });
     }
 
     const safeName = escapeHtml(name);
