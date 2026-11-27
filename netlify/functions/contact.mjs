@@ -1,16 +1,18 @@
 /**
  * Contact form handler (Netlify Function) — sends messages through Brevo.
  *
- * Required environment variables (set them in Netlify, never in code):
+ * Required environment variable (set it in Netlify, never in code):
  *   BREVO_API_KEY        Brevo API key (Brevo → SMTP & API → API keys)
+ * Optional (default to the public portfolio email):
  *   BREVO_SENDER_EMAIL   A sender address verified in Brevo (Brevo → Senders)
  *   CONTACT_TO_EMAIL     Inbox that receives the messages
- * Optional:
  *   BREVO_SENDER_NAME    Display name for the sender (default "Portfolio Contact Form")
  */
 
 const BREVO_URL = 'https://api.brevo.com/v3/smtp/email';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Public address already shown on the site; not a secret
+const DEFAULT_EMAIL = 'thapa.dikshya2003@gmail.com';
 const ALLOWED_ORIGINS = [
     'https://dikshya-thapa.com.np',
     'https://www.dikshya-thapa.com.np',
@@ -74,15 +76,13 @@ export default async (req) => {
     }
 
     const apiKey = process.env.BREVO_API_KEY;
-    const senderEmail = process.env.BREVO_SENDER_EMAIL;
-    const toEmail = process.env.CONTACT_TO_EMAIL;
+    const senderEmail = process.env.BREVO_SENDER_EMAIL || DEFAULT_EMAIL;
+    const toEmail = process.env.CONTACT_TO_EMAIL || DEFAULT_EMAIL;
     const senderName = process.env.BREVO_SENDER_NAME || 'Portfolio Contact Form';
 
-    if (!apiKey || !senderEmail || !toEmail) {
-        console.error('Contact form is missing BREVO_API_KEY, BREVO_SENDER_EMAIL or CONTACT_TO_EMAIL.');
-        // TEMPORARY diagnostics: names of missing variables only (never their values)
-        const missing = ['BREVO_API_KEY', 'BREVO_SENDER_EMAIL', 'CONTACT_TO_EMAIL'].filter((k) => !process.env[k]);
-        return json(500, { ok: false, error: 'The contact form is not configured yet. Please email me directly.', missing });
+    if (!apiKey) {
+        console.error('Contact form is missing BREVO_API_KEY.');
+        return json(500, { ok: false, error: 'The contact form is not configured yet. Please email me directly.' });
     }
 
     const safeName = escapeHtml(name);
